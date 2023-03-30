@@ -1,57 +1,58 @@
 # GoWordle
 
 # Cloning
-To clone, use ```git clone https://ghe.ops.betable.com/mason/GoWordle.git```
+To clone go to the terminal and use ```git clone https://ghe.ops.betable.com/mason/GoWordle.git```
 
+# If the program doesn't work:
+The links used in the program to get the answers and guesses may get updated, deleted, or changed, so if the program is not working, please send me an email at mason.m.hill1@gmail.com and I will update the links.
 
-# Running the Program
-To run it, use ```go run .```
+# Running the Program 
+To run it open a terminal and navigate into the ```GoWordle/``` folder (using ```cd GoWordle``` if your terminal allows that command) then use ```go run .```
 
-From there, it will start the game, these are the rules:\
-You get 5 guesses to get the word.\
-You cannot guess a duplicate\
-You have to guess an actual 5 letter word, no guesses like 'aabbc'\
-You will be able to see if a letter is in the right position or not using the following rubric: 
+From there, it will start the game, these are the rules:
+You get 6 guesses to get the word.
+You have to guess an actual 5 letter word, no guesses like 'aabbc'
+You will be able to see if a letter is in the right position or not using the following rubric:
 
-| Color      | Meaning |
+| Color | Description |
 | ----------- | ----------- |
-| Red      | The letter is not in the word at all|
-| Yellow   | The letter is in the word but not in the right place|
-| Green    | The letter is in the right place|
+| Red | The letter is not in the word |
+| Yellow | The letter is in the word but not in the right place |
+|Green|The letter is in the right place|
 
-Once the game starts, enter a 5 letter word (it is case insensistive, so HeLlO and hello and HELLO are all equivalent) and the game will show you how your guess compared to the answer in the form of your guess but with colors behind the letters.\
-Using the above color rubric, you can determine how close you are to the answer.\
-This is what a regular no flag run of the game looks like:
-\
-\
-<img width="944" alt="Screen Shot 2023-03-02 at 10 39 01 AM" src="https://user-images.githubusercontent.com/85005952/222508558-ad27870d-6171-482d-9827-aec60912aa05.png">
-
+Once the game starts, enter a 5 letter word (it is case insensitive, so HeLlO and hello and HELLO are all equivalent) and the game will show you how your guess compared to the answer in the form of your guess with the background colors of each letter corresponding to an equivalent. 
 
 All of the valid guesses can be found at: https://gist.github.com/cfreshman/a7b776506c73284511034e63af1017ee/raw/wordle-nyt-answers-alphabetical.txt and https://gist.github.com/cfreshman/40608e78e83eb4e1d60b285eb7e9732f/raw/wordle-nyt-allowed-guesses.txt
 
 All of the valid answers can be found at https://gist.github.com/cfreshman/a7b776506c73284511034e63af1017ee/raw/wordle-nyt-answers-alphabetical.txt
 
+Here is a regular run of the game using ```go run .```:
+
+<img width="944" alt="Screen Shot 2023-03-02 at 10 39 01 AM" src="https://ghe.ops.betable.com/storage/user/66/files/caead4e9-c448-4c84-a5de-c2189ce18ef0">
+
 
 # Options
 
+## View Answer
+
 If you need to see the answer, run it with ```go run . -a```. This is what a run of this option would look like: 
 
-<img width="1019" alt="Screen Shot 2023-03-02 at 10 43 19 AM" src="https://user-images.githubusercontent.com/85005952/222509341-d6c3a06e-dd89-40f0-82aa-e64d4e971ac3.png">
+<img width="1019" alt="Screen Shot 2023-03-02 at 10 43 19 AM" src="https://ghe.ops.betable.com/storage/user/66/files/0c128fdd-3f9f-4478-a6e0-1a325e4bbe62">
 
 
-
+## Set Answer
 
 If you want to set the answer, use ```go run . -s``` to then be prompted for your answer. You can only enter an answer that is from the list of valid answers found at:
 https://gist.github.com/cfreshman/a7b776506c73284511034e63af1017ee/raw/wordle-nyt-answers-alphabetical.txt
 Here is a sample run with this option:
-\
-\
-<img width="957" alt="Screen Shot 2023-03-02 at 10 45 07 AM" src="https://user-images.githubusercontent.com/85005952/222509666-3de51626-dd20-4b10-bd2d-8b23cd05170e.png">
+
+<img width="957" alt="Screen Shot 2023-03-02 at 10 45 07 AM" src="https://ghe.ops.betable.com/storage/user/66/files/2bd5057e-31f2-45b1-80e1-4133dec033ca">
+
 
 
 # How to test
 
-To test the program, navigate to the ```Tests``` folder, then run ```go test```
+To test the program, navigate to the folder you would like to test, in this case it would be one of the ```game```, ```view```,```rga```,```answerflag```, or ```inpt``` folders, then run ```go test```
 
 Please note that some of the functions are designed to output error messages so if you see something like the ```Error with response code after downloading github page```, that appears because in the testing suite I also test for if it would reject a bad github page link, and when it does, that is the message that is displayed. If it doesn't look something like this
 ```
@@ -61,6 +62,6 @@ ok  	masonwordle/Tests	1.816s
 at the bottom then that is concerning and shows that the tests did not actually pass.
 
 
-# Things that aren't done
-The testing suite for any of the input related things is not done due to manually testing inputs and not knowing how to put command line inputs in a testing script. There are also no tests for main.go since I don't actually know how to test that since it doesn't take any arguments and doesn't return any values. This includes the view testing suite as well. Also, while I tried to check every comment, some comments may be slightly outdated.
+
+
 

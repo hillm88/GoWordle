@@ -2,43 +2,65 @@ package main
 
 import (
 	"flag"
+	"log"
+	"masonwordle/answerflag"
 	"masonwordle/game"
+	"masonwordle/inpt"
+	"masonwordle/rga"
+	"masonwordle/view"
 )
 
 // main is the starting point of the program. It deals with flag handling and setting up the conditions for the RunTheGame function
 func main() {
-	// Outputting all the intial text needed.
-	game.View()
-	//answerFlag is used to parse the -a flag that the program can be run with and is loaded with a bool value of whether the flag has been used or not.
-	answerFlag := flag.Bool("a", false, "The answer is not being shown")
-	//setAnswerFlag is used to parse the -s flag that the program can be run with.
+
+	//All 3 flags are handled here.
+	showAnswerFlag := flag.Bool("a", false, "The answer is not being shown")
 	setAnswerFlag := flag.Bool("s", false, "The answer is not set")
-	//answerFlag is used to parse the -s flag that the program can be run with.
-	addFourFlag := flag.Bool("f", false, "The 4 flag is not set")
-	//Parsing the flag from the cli
+	//Parsing the command line flags from os.Args[1:]. Must be called after all flags are defined but before flags are accessed by program.
 	flag.Parse()
 
-	// option will hold the text value of whatever flag it is set to.
-	var option string
-	var fourthFlag bool
-	if *setAnswerFlag {
-		option = "set answer"
-	} else if *answerFlag {
-		option = "give answer"
+	inputController := inpt.New()
+	viewController := view.New()
+	gameController := game.New(inputController, viewController)
+	flagController := answerflag.New(inputController)
+	guessAndAnswersController := rga.New()
+
+	// GetGuessesAndAnswers returns 2 string arrays, the guesses and the answers plus any errors.
+	answers, mapOfGuesses, mapOfAnswers, errA := guessAndAnswersController.GetGuessesAndAnswers()
+	if errA != nil {
+		log.Fatalf(errA.Error())
 	}
-	if *addFourFlag {
-		fourthFlag = true
+
+	converter := converter{}
+
+	var answer string
+
+	for {
+
+		//Creating a new instance of the game struct.
+		gameStruct := &game.GameState{
+			Answer:       answer,
+			ValidGuesses: mapOfGuesses,
+			AnswerList:   answers,
+			ValidAnswers: mapOfAnswers,
+		}
+		//Getting an answer
+		answer, err := flagController.AnswerFlagHandler(converter.convertToAnswerFlag(gameStruct, *setAnswerFlag, *showAnswerFlag))
+		if err != nil {
+			panic(err)
+		}
+
+		gameStruct.Answer = answer
+
+		//Calling the main run the game method and storing the error it might have
+		errA := gameController.RunTheGame(gameStruct)
+
+		if errA != nil {
+			panic(errA)
+		}
+
+		if tf, err := inputController.GameContinueDecision(); !tf || err != nil {
+			break
+		}
 	}
-
-	// GetGuessesAndAnswers returns 2 string arrays, the guesses and the answers
-	var guesses, answers = game.GetGuessesAndAnswers()
-
-	//mapOfGuesses contains all the guesses but they are now all in a map[string]string with both strings being the same guess.
-	//EX: guess is hello so map will contain map[hello]hello
-	mapOfGuesses, _ := game.MapIt(guesses)
-
-	mapOfAnswers, _ := game.MapIt(answers)
-
-	//Starting the game.
-	game.RunTheGame(option, mapOfGuesses, answers, mapOfAnswers, fourthFlag)
 }
