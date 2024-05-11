@@ -26,29 +26,18 @@ All of the valid guesses can be found at: https://gist.github.com/cfreshman/a7b7
 
 All of the valid answers can be found at https://gist.github.com/cfreshman/a7b776506c73284511034e63af1017ee/raw/wordle-nyt-answers-alphabetical.txt
 
-Here is a regular run of the game using ```go run .```:
-
-<img width="944" alt="Screen Shot 2023-03-02 at 10 39 01 AM" src="https://ghe.ops.betable.com/storage/user/66/files/caead4e9-c448-4c84-a5de-c2189ce18ef0">
-
 
 # Options
 
 ## View Answer
 
-If you need to see the answer, run it with ```go run . -a```. This is what a run of this option would look like: 
-
-<img width="1019" alt="Screen Shot 2023-03-02 at 10 43 19 AM" src="https://ghe.ops.betable.com/storage/user/66/files/0c128fdd-3f9f-4478-a6e0-1a325e4bbe62">
+If you need to see the answer, run it with ```go run . -a```.
 
 
 ## Set Answer
 
 If you want to set the answer, use ```go run . -s``` to then be prompted for your answer. You can only enter an answer that is from the list of valid answers found at:
 https://gist.github.com/cfreshman/a7b776506c73284511034e63af1017ee/raw/wordle-nyt-answers-alphabetical.txt
-Here is a sample run with this option:
-
-<img width="957" alt="Screen Shot 2023-03-02 at 10 45 07 AM" src="https://ghe.ops.betable.com/storage/user/66/files/2bd5057e-31f2-45b1-80e1-4133dec033ca">
-
-
 
 # How to test
 
